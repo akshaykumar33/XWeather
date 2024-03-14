@@ -35,22 +35,22 @@ function App() {
         </form>
       </div>
       {loading ? (<p>Loading data...</p>) : (
-        <div className='container'>
+        <div className='weather-cards'>
           {search && search.location.name.toLowerCase() === city.toLowerCase() ? (
             <>
-              <div className="weather-cards weather-card">
+              <div className="weather-card">
                 <h4>Temperature</h4>
                 <p>{search.current.temp_c}°C</p>
               </div>
-              <div className="weather-cards weather-card">
+              <div className="weather-card">
                 <h4>Humidity</h4>
                 <p>{search.current.humidity}%</p>
               </div>
-              <div className="weather-cards weather-card">
+              <div className="weather-card">
                 <h4>Condition</h4>
                 <p>{search.current.condition.text}</p>
               </div>
-              <div className="weather-cards weather-card">
+              <div className="weather-card">
                 <h4>Wind Speed</h4>
                 <p>{search.current.wind_kph}kph</p>
               </div>

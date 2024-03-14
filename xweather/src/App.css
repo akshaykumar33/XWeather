@@ -37,20 +37,17 @@ form > button{
   font-size: large;
   font-weight: bolder;
 }
-.container{
+.weather-cards{
   display:flex;
   flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
   gap:10px;
 }
-.weather-cards{
+.weather-card{
   box-shadow: 0.3em 0.3em 0.3em 0.3em rgba(0,0,0,0.3);
   padding:1em;
   height:6em;
   width:10em;
   border-radius: 5px;
-}
-.weather-card{
-  
 }
