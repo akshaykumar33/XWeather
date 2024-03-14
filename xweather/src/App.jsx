@@ -16,8 +16,7 @@ function App() {
     await fetch(`http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`)
       .then((res) => res.json())
       .then((data) => {
-        setSearch(data);
-        search.location.name.toLowerCase() === city?setSearch(data): alert("Failed to fetch weather data");
+        data.location.name.toLowerCase() === city.toLowerCase()?setSearch(data): alert("Failed to fetch weather data");
         setLoading(false);
       })
       .catch((err) => {
