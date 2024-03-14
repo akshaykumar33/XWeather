@@ -1,33 +1,66 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [search, setSearch] = useState(null);
+  const [city, setCity] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  const API_KEY = '47f558eb839b451bb9f194016243101';
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    await fetch(`http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city}`)
+      .then((res) => res.json())
+      .then((data) => {
+        setSearch(data);
+        search.location.name.toLowerCase() === city?setSearch(data): alert("Failed to fetch weather data");
+        setLoading(false);
+      })
+      .catch((err) => {
+        alert("Failed to fetch weather data");
+        console.log("err",err);
+        setLoading(false); 
+      });
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
+        <form onSubmit={handleSubmit}>
+          <input type='text' placeholder='Enter city name' name='city' value={city} onChange={(e) => setCity(e.target.value)} />
+          <button type='submit'>Search</button>
+        </form>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      {loading ? (<p>Loading data...</p>) : (
+        <div className='container'>
+          {search && search.location.name.toLowerCase() === city.toLowerCase() ? (
+            <>
+              <div className="weather-card">
+                <h4>Temperature</h4>
+                <p>{search.current.temp_c}°C</p>
+              </div>
+              <div className="weather-card">
+                <h4>Humidity</h4>
+                <p>{search.current.humidity}%</p>
+              </div>
+              <div className="weather-card">
+                <h4>Condition</h4>
+                <p>{search.current.condition.text}</p>
+              </div>
+              <div className="weather-card">
+                <h4>Wind Speed</h4>
+                <p>{search.current.wind_kph}kph</p>
+              </div>
+            </>
+          ) : (
+            search?(<p>No data available for {city}</p>):(<></>)
+          )}
+        </div>
+      )}
     </>
   )
 }
