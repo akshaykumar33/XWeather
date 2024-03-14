@@ -38,19 +38,19 @@ function App() {
         <div className='container'>
           {search && search.location.name.toLowerCase() === city.toLowerCase() ? (
             <>
-              <div className="weather-card">
+              <div className="weather-cards">
                 <h4>Temperature</h4>
                 <p>{search.current.temp_c}°C</p>
               </div>
-              <div className="weather-card">
+              <div className="weather-cards">
                 <h4>Humidity</h4>
                 <p>{search.current.humidity}%</p>
               </div>
-              <div className="weather-card">
+              <div className="weather-cards">
                 <h4>Condition</h4>
                 <p>{search.current.condition.text}</p>
               </div>
-              <div className="weather-card">
+              <div className="weather-cards">
                 <h4>Wind Speed</h4>
                 <p>{search.current.wind_kph}kph</p>
               </div>
